@@ -11,11 +11,9 @@
 <body>
     <h1>Vue Basic</h1>
     <div id="app">
-        <p>{{message}}</p>
-        <p>It is true: {{isTrue ? 'Yes' : 'No'}}</p>
-        <p>{{myarr[0]}}</p>
-        <p>{{myobj.city}}</p>
-
+        <!-- {{message}} -->
+         {{message()}}
+         {{welcome()}}
     </div>
 </body>
 <script>
@@ -23,21 +21,18 @@
 
     createApp({
         setup() {
-            const date = new Date().toLocaleDateString();
-            const message = "Hello Vuejs!  " + "To day date is " + date;
-            const isTrue = true;
-            const myarr = ['cat', 'dog', 'cow', 'sheep', 'goat'];
-            const myobj = {
-                name: 'John',
-                age: 30,
-                city: 'New York'
-            };
 
+           // const message = () => 'Message from function';
+           function message() {
+                return 'Message from the function';
+            }
             return {
                 message,
-                isTrue,
-                myarr,
-                myobj
+            }
+        },
+        methods: {
+            welcome() {
+                return 'Welcome to Vue 3';
             }
         },
         // template: `<div>{{ message }}</div>`
