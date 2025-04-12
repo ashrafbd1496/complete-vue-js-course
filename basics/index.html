@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Vue basics</title>
 </head>
+
 <body>
-    
+    <h1>Vue Basic</h1>
+    <div id="app">
+        <p>{{message}}</p>
+        <p>It is true: {{isTrue ? 'Yes' : 'No'}}</p>
+        <p>{{myarr[0]}}</p>
+        <p>{{myobj.city}}</p>
+
+    </div>
 </body>
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        setup() {
+            const date = new Date().toLocaleDateString();
+            const message = "Hello Vuejs!  " + "To day date is " + date;
+            const isTrue = true;
+            const myarr = ['cat', 'dog', 'cow', 'sheep', 'goat'];
+            const myobj = {
+                name: 'John',
+                age: 30,
+                city: 'New York'
+            };
+
+            return {
+                message,
+                isTrue,
+                myarr,
+                myobj
+            }
+        },
+        // template: `<div>{{ message }}</div>`
+    }).mount('#app');
+</script>
+
 </html>
