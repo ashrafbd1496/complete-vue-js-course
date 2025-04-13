@@ -11,31 +11,32 @@
 <body>
     <h1>Vue Basic</h1>
     <div id="app">
-        <!-- {{message}} -->
-         {{message()}}
-         {{welcome()}}
+        <p>wait 3 sect to get the chaged value: {{ count }}</p>
+        <p>Chaged Value: {{ changeValue() }}</p>
+
     </div>
 </body>
 <script>
-    const { createApp } = Vue;
+    const { createApp, ref } = Vue;
 
     createApp({
         setup() {
 
-           // const message = () => 'Message from function';
-           function message() {
-                return 'Message from the function';
+            let count = ref(0);
+            function changeValue() {
+                setTimeout(() => {
+                    count.value = count.value + 1;
+                }, 3000);
+
             }
+
             return {
-                message,
+                changeValue,
+                count
             }
-        },
-        methods: {
-            welcome() {
-                return 'Welcome to Vue 3';
-            }
-        },
-        // template: `<div>{{ message }}</div>`
+        }
+
+
     }).mount('#app');
 </script>
 
