@@ -11,28 +11,41 @@
 <body>
     <h1>Vue Basic</h1>
     <div id="app">
-        <p>wait 3 sect to get the chaged value: {{ count }}</p>
-        <p>Chaged Value: {{ changeValue() }}</p>
+        <p>Name: {{user.name}}</p>
+        <p>Occupation: {{user.occupation}}</p>
+        <p>Age: {{user.age}}</p>
+        {{updateAge()}}
 
     </div>
 </body>
 <script>
-    const { createApp, ref } = Vue;
+    const { createApp, ref,reactive } = Vue;
 
     createApp({
         setup() {
 
-            let count = ref(0);
-            function changeValue() {
+        //    let user = ref({
+        //         name: 'Ashraf',
+        //         occupation: 'Software Engineer',
+        //         age: 18
+        //     });
+        
+            let user = reactive({
+                name: 'Ashraf',
+                occupation: 'Software Engineer',
+                age: 18
+            });
+            function updateAge() {
                 setTimeout(() => {
-                    count.value = count.value + 1;
+                   // user.value.age = 20; used for ref
+                    user.age = 20;
                 }, 3000);
 
             }
 
             return {
-                changeValue,
-                count
+                updateAge,
+                user
             }
         }
 
