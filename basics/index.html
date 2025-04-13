@@ -11,10 +11,13 @@
 <body>
     <h1>Vue Basic</h1>
     <div id="app">
-        <p>Name: {{user.name}}</p>
-        <p>Occupation: {{user.occupation}}</p>
-        <p>Age: {{user.age}}</p>
-        {{updateAge()}}
+      <img :src="image.src" :alt="image.imageAlt" />
+      <hr>
+      <a :href="link">Picsum</a>
+      <hr>
+      <p v-text="txt"></p>
+      <hr>
+      <p v-html="vueHtml"></p>
 
     </div>
 </body>
@@ -24,29 +27,15 @@
     createApp({
         setup() {
 
-        //    let user = ref({
-        //         name: 'Ashraf',
-        //         occupation: 'Software Engineer',
-        //         age: 18
-        //     });
-        
-            let user = reactive({
-                name: 'Ashraf',
-                occupation: 'Software Engineer',
-                age: 18
+           let image = ref({
+                src: 'https://picsum.photos/200/200',
+                imageAlt: 'pic some photo'
             });
-            function updateAge() {
-                setTimeout(() => {
-                   // user.value.age = 20; used for ref
-                    user.age = 20;
-                }, 3000);
-
-            }
-
-            return {
-                updateAge,
-                user
-            }
+        
+            const link = 'https://picsum.photos/';
+            const txt = 'Vue txt directive';
+            const vueHtml = '<strong>Vue html</strong>';
+            return {image, link, txt, vueHtml}
         }
 
 
