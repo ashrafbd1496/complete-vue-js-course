@@ -17,28 +17,7 @@
             color: white;
             font-weight: bold;
         }
-        .log-output {
-            margin-top: 20px;
-            padding: 10px;
-            background: #f0f0f0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: monospace;
-            white-space: pre-wrap;
-        }
-        .event-properties {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f8f8;
-            border: 1px solid #eee;
-        }
-        .property {
-            margin: 5px 0;
-        }
-        .property-name {
-            font-weight: bold;
-            color: #2c3e50;
-        }
+        
     </style>
 </head>
 
@@ -52,32 +31,15 @@
         <p style="color: green;">Mouse X: {{ coord.x }}</p>
         <p style="color: red;">Mouse Y: {{ coord.y }}</p>
         <hr>
-        <button @click="handleClick">Click Me</button>
-        
-        <div class="log-output">
-            <h3>Console Logs:</h3>
-            <pre>{{ logs.join('\n') }}</pre>
-        </div>
-        
-        <div class="event-properties" v-if="lastEvent">
-            <h3>Last Event Properties:</h3>
-            <div class="property">
-                <span class="property-name">Event Type:</span> {{ lastEvent.type }}
-            </div>
-            <div class="property">
-                <span class="property-name">Target Tag:</span> {{ lastEvent.target.tagName }}
-            </div>
-            <div class="property">
-                <span class="property-name">Client X/Y:</span> {{ lastEvent.clientX }}, {{ lastEvent.clientY }}
-            </div>
-            <div class="property">
-                <span class="property-name">Timestamp:</span> {{ lastEvent.timeStamp }}
-            </div>
-            <button @click="showFullEvent = !showFullEvent">
-                {{ showFullEvent ? 'Hide' : 'Show' }} Full Event Object
-            </button>
-            <pre v-if="showFullEvent">{{ JSON.stringify(lastEvent, null, 2) }}</pre>
-        </div>
+        <button @click="upadateName('Humayra')">Upade Name</button>
+        {{name}}
+        <hr>
+        <form v-on:submit.prevent="handleForm">
+            <h1>Vue input Form</h1>
+            <input/>
+            <button type="submit">submit</button>
+        </form>
+
     </div>
 </body>
 <script>
@@ -86,36 +48,31 @@
     createApp({
         setup() {
             const coord = ref({ x: 0, y: 0 });
-            const logs = ref([]);
-            const lastEvent = ref(null);
-            const showFullEvent = ref(false);
-
+            const name = ref("Umar");
+ 
             function updateCoord(event) {
                 coord.value.x = event.clientX;
                 coord.value.y = event.clientY;
                 lastEvent.value = event;
             }
-
-            function handleClick(event) {
-                const message = `Button clicked at ${new Date().toLocaleTimeString()}`;
-                console.log(message);
-                logs.value.push(message);
-                lastEvent.value = event;
-                
-                if (logs.value.length > 5) {
-                    logs.value.shift();
-                }
+            function upadateName(newName) {
+                name.value = newName;
+            }
+            function handleForm(event) {
+                //event.preventDefault();
+                console.log('form submitted');
             }
 
-            return { 
-                coord, 
-                updateCoord, 
-                logs,
-                handleClick,
-                lastEvent,
-                showFullEvent
+            return {
+                name,
+                coord,
+                updateCoord,
+                upadateName,
+                handleForm
+
             };
         }
     }).mount('#app');
 </script>
+
 </html>
