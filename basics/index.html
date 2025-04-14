@@ -16,18 +16,9 @@
 <body>
     <h1>Vue Event Properties</h1>
     <div id="app">
-        <form v-on:submit.prevent="fromHandler">
-            <label for="firstname">First Name</label>
-            <input type="text" id="firstname" v-model.trim="formData.firstName"><br><br>
-            <label for="lastname">Last Name</label>
-            <input type="text" id="lastname" v-model.trim="formData.lastName"><br><br>
-            <label for="age">Age</label>
-            <input type="text" id="age" v-model.number="formData.age"><br><br>
-            <button type="submit">submit</button><br><br>
-            <input type="checkbox" id="checkbox" v-model="formData.checked">
-            <label for="checkbox">Your are agree with our terms</label>
-           
-        </form>
+        <div class="element" :class="{red:redColor, large:fontSize}" @click="fontSize = !fontSize">
+            <p>Vue styles </p>
+        </div>
     </div>
 </body>
 <script>
@@ -35,24 +26,33 @@
 
     createApp({
         setup() {
-
-            const formData = ref({
-                firstName: '',
-                lastName: '',
-                age: '',
-                checked: false,
-            });
-
-            function fromHandler() {
-                console.log(formData.value);
-            }
+            const redColor = ref(true);
+            const blueColor = ref(false);
+            const fontSize = ref(false);    
+           
             return {
-                formData,
-                fromHandler
+              redColor, blueColor,fontSize
             };
         }
     }).mount('#app');
 </script>
+<style>
+    .element {
+       color: white;
+       background-color: #42b983;
+         padding: 10px;
+    }
+   
+    .blue {
+        color: blue;
+    }
+    .red  {
+        color: red;
+    }
+    .large {
+        font-size: 40px;
+    }
+</style>
 
 </html>
 
