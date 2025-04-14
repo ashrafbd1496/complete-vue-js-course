@@ -11,31 +11,34 @@
 <body>
     <h1>Vue Basic</h1>
     <div id="app">
-      <img :src="image.src" :alt="image.imageAlt" />
-      <hr>
-      <a :href="link">Picsum</a>
-      <hr>
-      <p v-text="txt"></p>
-      <hr>
-      <p v-html="vueHtml"></p>
+        <p v-if="user.age < user.allowedAge">
+            You are not old enough
+        </p>
+        <p v-else-if="checkUser()">
+            Welcome back {{ user.name }}
+        </p>
+        <p v-else>
+            You are not allowed
+        </p>
 
     </div>
 </body>
 <script>
-    const { createApp, ref,reactive } = Vue;
+    const { createApp, reactive } = Vue;
 
     createApp({
         setup() {
 
-           let image = ref({
-                src: 'https://picsum.photos/200/200',
-                imageAlt: 'pic some photo'
+            const user = reactive({
+                name: 'Umar',
+                age: 15,
+                allowedAge: 18,
+
             });
-        
-            const link = 'https://picsum.photos/';
-            const txt = 'Vue txt directive';
-            const vueHtml = '<strong>Vue html</strong>';
-            return {image, link, txt, vueHtml}
+            function checkUser() {
+                return user.name === 'Umar' ? true : false;
+            }
+            return { user, checkUser }
         }
 
 
