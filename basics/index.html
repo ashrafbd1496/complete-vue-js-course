@@ -5,28 +5,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <title>Vue basics</title>
+    <title>Vue Event Properties</title>
+    <style>
+        .box {
+            background-color: red;
+            height: 200px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+        .log-output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .event-properties {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border: 1px solid #eee;
+        }
+        .property {
+            margin: 5px 0;
+        }
+        .property-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Vue Basic</h1>
+    <h1>Vue Event Properties</h1>
     <div id="app">
-        <ul :style="{ 'list-style-type': 'none' }">
-            <li v-for="(name, index) in names" :key="index">
-                {{ name }} : {{ index }}
-            </li>
-        </ul>
-        <ol>
-       <li v-for="(car, index) in cars">
-        {{ car.brand }} : {{ index }}
-       </li>
-    </ol>
-       <hr>
-       <ul>
-        <li v-for="(key, value, index) in user">
-            {{ index }} : {{ key }} :{{ value }}
-        </li>
-       </ul>
+        <div class="box" @mousemove="updateCoord">
+            Hover me
+        </div>
+        <h2>Mouse Coordinates</h2>
+        <p style="color: green;">Mouse X: {{ coord.x }}</p>
+        <p style="color: red;">Mouse Y: {{ coord.y }}</p>
+        <hr>
+        <button @click="handleClick">Click Me</button>
+        
+        <div class="log-output">
+            <h3>Console Logs:</h3>
+            <pre>{{ logs.join('\n') }}</pre>
+        </div>
+        
+        <div class="event-properties" v-if="lastEvent">
+            <h3>Last Event Properties:</h3>
+            <div class="property">
+                <span class="property-name">Event Type:</span> {{ lastEvent.type }}
+            </div>
+            <div class="property">
+                <span class="property-name">Target Tag:</span> {{ lastEvent.target.tagName }}
+            </div>
+            <div class="property">
+                <span class="property-name">Client X/Y:</span> {{ lastEvent.clientX }}, {{ lastEvent.clientY }}
+            </div>
+            <div class="property">
+                <span class="property-name">Timestamp:</span> {{ lastEvent.timeStamp }}
+            </div>
+            <button @click="showFullEvent = !showFullEvent">
+                {{ showFullEvent ? 'Hide' : 'Show' }} Full Event Object
+            </button>
+            <pre v-if="showFullEvent">{{ JSON.stringify(lastEvent, null, 2) }}</pre>
+        </div>
     </div>
 </body>
 <script>
@@ -34,25 +85,37 @@
 
     createApp({
         setup() {
-            const names = ref(['Umar', 'Ali', 'Awais', 'Tariq']);
-            const cars = ref([
-                {brand: 'Toyota', model: 'Corolla', year: 2020},
-                {brand: 'Honda', model: 'Civic', year: 2021},
-                {brand: 'Ford', model: 'Mustang', year: 2022},
-            ]);
+            const coord = ref({ x: 0, y: 0 });
+            const logs = ref([]);
+            const lastEvent = ref(null);
+            const showFullEvent = ref(false);
 
-            const user = ref({
-                name: 'Umar',
-                lastName: 'farooq',
-                age: 18,
+            function updateCoord(event) {
+                coord.value.x = event.clientX;
+                coord.value.y = event.clientY;
+                lastEvent.value = event;
+            }
 
-            });
-          
-            return { names, cars, user };
+            function handleClick(event) {
+                const message = `Button clicked at ${new Date().toLocaleTimeString()}`;
+                console.log(message);
+                logs.value.push(message);
+                lastEvent.value = event;
+                
+                if (logs.value.length > 5) {
+                    logs.value.shift();
+                }
+            }
+
+            return { 
+                coord, 
+                updateCoord, 
+                logs,
+                handleClick,
+                lastEvent,
+                showFullEvent
+            };
         }
-
-
     }).mount('#app');
 </script>
-
 </html>
