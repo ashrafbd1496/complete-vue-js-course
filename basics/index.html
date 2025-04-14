@@ -7,39 +7,27 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <title>Vue Event Properties</title>
     <style>
-        .box {
-            background-color: red;
-            height: 200px;
-            width: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: bold;
+        form label {
+            padding-right: 10px;
         }
-        
     </style>
 </head>
 
 <body>
     <h1>Vue Event Properties</h1>
     <div id="app">
-        <div class="box" @mousemove="updateCoord">
-            Hover me
-        </div>
-        <h2>Mouse Coordinates</h2>
-        <p style="color: green;">Mouse X: {{ coord.x }}</p>
-        <p style="color: red;">Mouse Y: {{ coord.y }}</p>
-        <hr>
-        <button @click="upadateName('Humayra')">Upade Name</button>
-        {{name}}
-        <hr>
-        <form v-on:submit.prevent="handleForm">
-            <h1>Vue input Form</h1>
-            <input/>
-            <button type="submit">submit</button>
+        <form v-on:submit.prevent="fromHandler">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" v-model.trim="formData.firstName"><br><br>
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" v-model.trim="formData.lastName"><br><br>
+            <label for="age">Age</label>
+            <input type="text" id="age" v-model.number="formData.age"><br><br>
+            <button type="submit">submit</button><br><br>
+            <input type="checkbox" id="checkbox" v-model="formData.checked">
+            <label for="checkbox">Your are agree with our terms</label>
+           
         </form>
-
     </div>
 </body>
 <script>
@@ -47,32 +35,24 @@
 
     createApp({
         setup() {
-            const coord = ref({ x: 0, y: 0 });
-            const name = ref("Umar");
- 
-            function updateCoord(event) {
-                coord.value.x = event.clientX;
-                coord.value.y = event.clientY;
-                lastEvent.value = event;
-            }
-            function upadateName(newName) {
-                name.value = newName;
-            }
-            function handleForm(event) {
-                //event.preventDefault();
-                console.log('form submitted');
-            }
 
+            const formData = ref({
+                firstName: '',
+                lastName: '',
+                age: '',
+                checked: false,
+            });
+
+            function fromHandler() {
+                console.log(formData.value);
+            }
             return {
-                name,
-                coord,
-                updateCoord,
-                upadateName,
-                handleForm
-
+                formData,
+                fromHandler
             };
         }
     }).mount('#app');
 </script>
 
 </html>
+
