@@ -11,37 +11,44 @@
 <body>
     <h1>Vue Basic</h1>
     <div id="app">
-        <p v-if="user.age < user.allowedAge">
-            You are not old enough
-        </p>
-        <p v-else-if="checkUser()">
-            Welcome back {{ user.name }}
-        </p>
-        <p v-else>
-            You are not allowed
-        </p>
-        <hr>
-        <p v-show="true">Show it</p>
-        <p v-show="false">Vue make it display none</p>
-
+        <ul :style="{ 'list-style-type': 'none' }">
+            <li v-for="(name, index) in names" :key="index">
+                {{ name }} : {{ index }}
+            </li>
+        </ul>
+        <ol>
+       <li v-for="(car, index) in cars">
+        {{ car.brand }} : {{ index }}
+       </li>
+    </ol>
+       <hr>
+       <ul>
+        <li v-for="(key, value, index) in user">
+            {{ index }} : {{ key }} :{{ value }}
+        </li>
+       </ul>
     </div>
 </body>
 <script>
-    const { createApp, reactive } = Vue;
+    const { createApp, ref } = Vue;
 
     createApp({
         setup() {
+            const names = ref(['Umar', 'Ali', 'Awais', 'Tariq']);
+            const cars = ref([
+                {brand: 'Toyota', model: 'Corolla', year: 2020},
+                {brand: 'Honda', model: 'Civic', year: 2021},
+                {brand: 'Ford', model: 'Mustang', year: 2022},
+            ]);
 
-            const user = reactive({
+            const user = ref({
                 name: 'Umar',
-                age: 15,
-                allowedAge: 18,
+                lastName: 'farooq',
+                age: 18,
 
             });
-            function checkUser() {
-                return user.name === 'Umar' ? true : false;
-            }
-            return { user, checkUser }
+          
+            return { names, cars, user };
         }
 
 
