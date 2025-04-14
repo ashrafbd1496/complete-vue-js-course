@@ -16,8 +16,11 @@
 <body>
     <h1>Vue Event Properties</h1>
     <div id="app">
-        <div class="element" :class="{red:redColor, large:fontSize}" @click="fontSize = !fontSize">
+        <div class="element" v-bind:class="colors">
             <p>Vue styles </p>
+        </div>
+        <div v-on:click="colors.red = !colors.red">
+            <p>Click to change color</p>
         </div>
     </div>
 </body>
@@ -26,12 +29,15 @@
 
     createApp({
         setup() {
-            const redColor = ref(true);
-            const blueColor = ref(false);
-            const fontSize = ref(false);    
+           const colors =ref({
+                red: true,
+                blue: true,
+                large: true
+
+            });
            
             return {
-              redColor, blueColor,fontSize
+              colors
             };
         }
     }).mount('#app');
