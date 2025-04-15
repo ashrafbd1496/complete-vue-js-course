@@ -6,55 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="vue.js"></script>
     <title>Vue Event Properties</title>
-    <style>
-        form label {
-            padding-right: 10px;
-        }
-    </style>
+
 </head>
 
 <body>
     <div id="app">
-        <h1>Vue Event Properties</h1>
-
-        <input v-model="data.user" placeholder="Enter name" />
-        <button @click="toggleActive">Other Action</button>
-        <hr />
-        <div>Message: {{ message }}</div>
-        <div>Active: {{ isActive }}</div>
+        <h1>Vue watcher</h1>
+        <div>Count: {{count}}</div>
+        <button @click="count++">increase</button>
     </div>
 
     <script>
-        const { createApp, ref, computed } = Vue;
+        const { createApp, ref, watch } = Vue;
 
         createApp({
             setup() {
-                const data = ref({
-                    user: '',
-                    active: false
+
+                const count = ref(0);
+                watch(count, (newCount, oldCount)=>{
+                    console.log(`New count is ${newCount} and old is ${oldCount}`)
                 });
-
-                const message = computed(() => {
-                    console.log('Message Triggered');
-                    return data.value.user === 'Ashraf' ? 'Welcome' : 'Not allowed';
-                });
-
-                const isActive = computed(() => {
-                    console.log('Active Triggered');
-                    return data.value.active ? 'Active' : 'Not Active';
-                });
-
-                const toggleActive = () => {
-                    console.log('Toggle Triggered');
-                    data.value.active = !data.value.active;
-                };
-
-                return {
-                    data,
-                    message,
-                    isActive,
-                    toggleActive
-                };
+                
+                return {count}
             }
         }).mount('#app');
     </script>
