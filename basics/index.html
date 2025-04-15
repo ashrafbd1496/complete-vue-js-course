@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="vue.js"></script>
     <title>Vue Event Properties</title>
     <style>
         form label {
@@ -14,51 +14,50 @@
 </head>
 
 <body>
-    <h1>Vue Event Properties</h1>
     <div id="app">
-        <div class="element" v-bind:class="colors">
-            <p>Vue styles </p>
-        </div>
-        <div v-on:click="colors.red = !colors.red">
-            <p>Click to change color</p>
-        </div>
+        <h1>Vue Event Properties</h1>
+
+        <input v-model="data.user" placeholder="Enter name" />
+        <button @click="toggleActive">Other Action</button>
+        <hr />
+        <div>Message: {{ message }}</div>
+        <div>Active: {{ isActive }}</div>
     </div>
+
+    <script>
+        const { createApp, ref, computed } = Vue;
+
+        createApp({
+            setup() {
+                const data = ref({
+                    user: '',
+                    active: false
+                });
+
+                const message = computed(() => {
+                    console.log('Message Triggered');
+                    return data.value.user === 'Ashraf' ? 'Welcome' : 'Not allowed';
+                });
+
+                const isActive = computed(() => {
+                    console.log('Active Triggered');
+                    return data.value.active ? 'Active' : 'Not Active';
+                });
+
+                const toggleActive = () => {
+                    console.log('Toggle Triggered');
+                    data.value.active = !data.value.active;
+                };
+
+                return {
+                    data,
+                    message,
+                    isActive,
+                    toggleActive
+                };
+            }
+        }).mount('#app');
+    </script>
 </body>
-<script>
-    const { createApp, ref } = Vue;
-
-    createApp({
-        setup() {
-           const colors =ref({
-                red: true,
-                blue: true,
-                large: true
-
-            });
-           
-            return {
-              colors
-            };
-        }
-    }).mount('#app');
-</script>
-<style>
-    .element {
-       color: white;
-       background-color: #42b983;
-         padding: 10px;
-    }
-   
-    .blue {
-        color: blue;
-    }
-    .red  {
-        color: red;
-    }
-    .large {
-        font-size: 40px;
-    }
-</style>
 
 </html>
-
