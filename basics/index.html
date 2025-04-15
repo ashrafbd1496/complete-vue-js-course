@@ -4,30 +4,64 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="vue.js"></script>
-    <title>Vue Event Properties</title>
-
+    <title>Vue Watcher Display</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
 <body>
     <div id="app">
-        <h1>Vue watcher</h1>
-        <div>Count: {{count}}</div>
-        <button @click="count++">increase</button>
+        <h2>🧑 User Info</h2>
+
+        <label>Name: <input v-model="user.name" /></label><br>
+        <label>Age: <input type="number" v-model="user.age" /></label><br>
+
+        <h3>Watcher Output (User):</h3>
+        <p>{{ watcherMessage }}</p>
+
+        <hr />
+
+        <h2>👥 Full Name Watcher</h2>
+        <label>First Name: <input v-model="firstName" /></label><br>
+        <label>Last Name: <input v-model="lastName" /></label><br>
+
+        <h3>Watcher Output (Full Name):</h3>
+        <p>First Name: {{ firstName }}</p>
+        <p>Last Name: {{ lastName }}</p>
+        <p>{{mulplewatchermsg}}</p>
     </div>
 
     <script>
-        const { createApp, ref, watch } = Vue;
+        const { createApp, reactive, ref, watch } = Vue;
 
         createApp({
             setup() {
-
-                const count = ref(0);
-                watch(count, (newCount, oldCount)=>{
-                    console.log(`New count is ${newCount} and old is ${oldCount}`)
+                const user = reactive({
+                    name: 'Ashraf',
+                    age: 38
                 });
-                
-                return {count}
+
+                const watcherMessage = ref('');
+                const lastName = ref('');
+                const firstName = ref('');
+                const mulplewatchermsg = ref('');
+
+                watch([firstName, lastName], ([newF, newL], [oldF, oldL]) => {
+                    mulplewatchermsg.value = `Multiple watcher:  name changed: ${oldF} ${oldL} → ${newF} ${newL}`
+
+                });
+
+                watch(user, (newVal) => {
+                    watcherMessage.value = `User changed to: ${newVal.name} (${newVal.age})`;
+                }, { immediate: true });
+
+                return {
+                    user,
+                    watcherMessage,
+                    mulplewatchermsg,
+                    firstName,
+                    lastName,
+                    
+                };
             }
         }).mount('#app');
     </script>
