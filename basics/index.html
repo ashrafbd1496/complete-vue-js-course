@@ -46,7 +46,7 @@
                 const mulplewatchermsg = ref('');
 
                 watch([firstName, lastName], ([newF, newL], [oldF, oldL]) => {
-                    mulplewatchermsg.value = `Multiple watcher:  name changed: ${oldF} ${oldL} → ${newF} ${newL}`
+                    mulplewatchermsg.value = `Multiple watcher name changed: ${oldF} ${oldL} → ${newF} ${newL}`
 
                 });
 
@@ -60,7 +60,7 @@
                     mulplewatchermsg,
                     firstName,
                     lastName,
-                    
+
                 };
             }
         }).mount('#app');
