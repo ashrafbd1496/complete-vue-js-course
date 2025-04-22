@@ -10,7 +10,7 @@
         <aside class="sidebar left">Left Sidebar</aside>
         <main class="main">
           <userProfile :name="data.name" age="20" />
-          <button @click="updateName">Upadate Name</button>
+         <Button label="Update Name" @click="updateName" />
         </main>
         <aside class="sidebar right">Right Sidebar</aside>
       </div>
@@ -28,6 +28,7 @@
 import Footer from "./components/header_footer/Footer.vue";
 import userProfile from "./components/User/Profile.vue";
 import { reactive } from "vue";
+import Button from "./components/Button.vue";
 
 const data = reactive({
   name: "Ashraf",

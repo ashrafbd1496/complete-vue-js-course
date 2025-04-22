@@ -8,16 +8,7 @@
   </div>
 </template>
 <script setup>
-const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  age: {
-    type: Number,
-    required: true
-  },
-})
+const props = defineProps(['name', 'age']);
 </script>
 <style scoped>
 li > span {
@@ -27,10 +18,7 @@ li > span {
   padding: 20px;
   margin-top: 60px; /* Adjusted for fixed header */
   text-align: center;
-  position: fixed;
-  top: 20%;
   border: 1px solid #ccc;
-  width: 95%;
 }
 h1 {
   color: #0b643f;
