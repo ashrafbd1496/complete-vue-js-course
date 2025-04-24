@@ -9,8 +9,7 @@
       <div class="content-wrapper">
         <aside class="sidebar left">Left Sidebar</aside>
         <main class="main">
-          <userProfile :name="data.name" age="20" />
-         <Button label="Update Name" @click="updateName" />
+          <Cars :cars="cars" />
         </main>
         <aside class="sidebar right">Right Sidebar</aside>
       </div>
@@ -19,23 +18,20 @@
         <Footer />
       </footer>
     </div>
-
   </div>
 </template>
 
 <script setup>
 //imported component locally
 import Footer from "./components/header_footer/Footer.vue";
-import userProfile from "./components/User/Profile.vue";
 import { reactive } from "vue";
-import Button from "./components/Button.vue";
+import Cars from "./components/Cars/index.vue";
 
-const data = reactive({
-  name: "Ashraf",
-});
-const updateName = () => {
-  data.name = "Ali";
-};
+const cars = reactive([
+  { model: "F9", brand: "Ferrari" },
+  { model: "911", brand: "Porsche" },
+  { model: "Tipo", brand: "Fiat" },
+]);
 </script>
 
 <style>

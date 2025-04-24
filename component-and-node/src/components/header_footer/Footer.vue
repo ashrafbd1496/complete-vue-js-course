@@ -1,7 +1,7 @@
 <template>
     <footer>
       <h1>
-        This is Footer
+        Nxtgendev
       </h1>  
     </footer>
 </template>

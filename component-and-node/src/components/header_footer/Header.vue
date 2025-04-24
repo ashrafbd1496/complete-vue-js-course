@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1>This is Header</h1>
+      <h1>Complete Vue JS Course</h1>
     </header>
   </div>
 </template>
