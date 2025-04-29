@@ -9,10 +9,11 @@
 </template>
 
 <script setup>
-const props = defineProps(["cars"]);
+import { inject } from "vue";
+const {cars, updateCar} = inject(["cars"]);
 </script>
 
-<style scoped>
+<style scoped> 
 .cars {
   background-color: #f0f0f0;
   padding: 20px;
