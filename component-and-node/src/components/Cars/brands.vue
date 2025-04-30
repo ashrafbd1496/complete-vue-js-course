@@ -1,7 +1,10 @@
 <template>
   <div class="car_brands">
-    <h1>Car Brands</h1>
-    <hr><br>
+    <slot name="brands"></slot>
+    <br />
+    <slot name="Other"></slot>
+    <hr />
+    <br />
     <slot></slot>
   </div>
 </template>
@@ -14,6 +17,6 @@
 }
 
 .car_brands ::v-deep li {
-    color: red;
+  color: red;
 }
 </style>

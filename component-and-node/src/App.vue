@@ -13,9 +13,21 @@
             <Cars />
             <button @click="updateCar">Udate Car</button>
             <CarBrands>
-              <ol>
-                <li v-for="(brand, index) in brands" :key="index">{{brand}}</li>
-              </ol>
+              <template #brands>
+                <h1>Car Brands</h1>
+                <ol>
+                  <li v-for="(car, index) in cars" :key="index">
+                    {{ car.brand }}
+                  </li>
+                </ol>
+              </template>
+              <template #Other>
+                <h1>Other Brands</h1>
+                <ol>
+                  <li v-for="(car, index) in brands" :key="index">{{ car }}</li>
+                </ol>
+              </template>
+              <strong>Default Slot</strong>
             </CarBrands>
           </div>
         </main>
@@ -45,14 +57,12 @@ const cars = reactive([
 const updateCar = () => {
   cars[0].model = "f98";
   cars[0].brand = "Ford";
-}
+};
 provide("cars", {
   cars,
-  updateCar
-})
-const brands = reactive([
-  'Mazda', 'Honda', 'Mitsubishi'
-]);
+  updateCar,
+});
+const brands = reactive(["Mazda", "Honda", "Mitsubishi"]);
 </script>
 
 <style>
