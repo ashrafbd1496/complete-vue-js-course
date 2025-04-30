@@ -10,25 +10,12 @@
         <aside class="sidebar left">Left Sidebar</aside>
         <main class="main">
           <div>
-            <Cars />
-            <button @click="updateCar">Udate Car</button>
-            <CarBrands>
-              <template #brands>
-                <h1>Car Brands</h1>
-                <ol>
-                  <li v-for="(car, index) in cars" :key="index">
-                    {{ car.brand }}
-                  </li>
-                </ol>
-              </template>
-              <template #Other>
-                <h1>Other Brands</h1>
-                <ol>
-                  <li v-for="(car, index) in brands" :key="index">{{ car }}</li>
-                </ol>
-              </template>
-              <strong>Default Slot</strong>
-            </CarBrands>
+            <LifeCycle v-if="showIt"/>
+            <br>
+            <br>
+            <hr>
+            <br>
+            <button @click="showIt = !showIt">Toggle</button>
           </div>
         </main>
         <aside class="sidebar right">Right Sidebar</aside>
@@ -44,12 +31,13 @@
 <script setup>
 //imported component locally
 import Footer from "./components/header_footer/Footer.vue";
-import { reactive, provide } from "vue";
-import Cars from "./components/Cars/index.vue";
-import CarBrands from "./components/Cars/brands.vue";
+import { reactive,ref, provide } from "vue";
+import LifeCycle from "@/components/LifeCycle/Index.vue";
+
+const showIt = ref(true)
 
 const cars = reactive([
-  { model: "F9", brand: "Ferrari" },
+   { model: "F9", brand: "Ferrari" },
   { model: "911", brand: "Porsche" },
   { model: "Tipo", brand: "Fiat" },
 ]);
@@ -68,5 +56,7 @@ const brands = reactive(["Mazda", "Honda", "Mitsubishi"]);
 <style>
 body {
   font-family: sans-serif;
+  margin: 0 auto;
+  text-align: center;
 }
 </style>
