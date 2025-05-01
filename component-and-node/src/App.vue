@@ -10,12 +10,20 @@
         <aside class="sidebar left">Left Sidebar</aside>
         <main class="main">
           <div>
-            <LifeCycle v-if="showIt"/>
-            <br>
-            <br>
-            <hr>
-            <br>
-            <button @click="showIt = !showIt">Toggle</button>
+            <h1>Dynamic Component Loading</h1>
+            <br />
+            <p>Click the button to load a component dynamically.</p>
+            <br /><br />
+            <!-- <Friend1 v-if="activeComp === Friend1" />
+            <Friend2 v-if="activeComp === Friend2" /> -->
+            <button class="btn-1" @click="activeComp = Friend1">
+              Load Friend 1
+            </button>
+            <button class="btn-2" @click="activeComp = Friend2">
+              Load Friend 2
+            </button>
+
+            <component :is="activeComp" />
           </div>
         </main>
         <aside class="sidebar right">Right Sidebar</aside>
@@ -30,27 +38,12 @@
 
 <script setup>
 //imported component locally
+import { shallowRef } from "vue";
 import Footer from "./components/header_footer/Footer.vue";
-import { reactive,ref, provide } from "vue";
-import LifeCycle from "@/components/LifeCycle/Index.vue";
+import Friend1 from "./components/DynamicComp/friend1.vue";
+import Friend2 from "./components/DynamicComp/friend2.vue";
 
-const showIt = ref(true)
-
-const cars = reactive([
-   { model: "F9", brand: "Ferrari" },
-  { model: "911", brand: "Porsche" },
-  { model: "Tipo", brand: "Fiat" },
-]);
-
-const updateCar = () => {
-  cars[0].model = "f98";
-  cars[0].brand = "Ford";
-};
-provide("cars", {
-  cars,
-  updateCar,
-});
-const brands = reactive(["Mazda", "Honda", "Mitsubishi"]);
+const activeComp = shallowRef(Friend1);
 </script>
 
 <style>
@@ -58,5 +51,19 @@ body {
   font-family: sans-serif;
   margin: 0 auto;
   text-align: center;
+}
+.btn-1,
+.btn-2 {
+  background-color: #3aafa9; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
 }
 </style>
