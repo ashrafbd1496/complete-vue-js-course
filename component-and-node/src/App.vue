@@ -16,14 +16,12 @@
             <br /><br />
             <!-- <Friend1 v-if="activeComp === Friend1" />
             <Friend2 v-if="activeComp === Friend2" /> -->
-            <button class="btn-1" @click="activeComp = Friend1">
-              Load Friend 1
-            </button>
-            <button class="btn-2" @click="activeComp = Friend2">
-              Load Friend 2
-            </button>
-
-            <component :is="activeComp" />
+            <button class="btn-1" @click="activeComp = Friend1">Zahir</button>
+            <button class="btn-2" @click="activeComp = Friend2">Lois</button>
+            <!-- <keep-alive include="Friend1"> -->
+            <keep-alive exclude="friend1, friend2">
+              <component :is="activeComp" />
+            </keep-alive>
           </div>
         </main>
         <aside class="sidebar right">Right Sidebar</aside>
